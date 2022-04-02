@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
 {
     public GameObject enemyType;
     public int numEnemies = 10;
-    float delayLength = 10f;
+    float delayLength = 5f;
     public float spawnDelay;
 
     void Start()
