@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     public TextMeshProUGUI dashCountUI;
     bool canDash = true;
+    public bool dashing = false;
     public float dashTimer = 2f;
     public int dashCount = 0;
     int maxDashes = 10;
@@ -54,7 +55,10 @@ public class PlayerMovement : MonoBehaviour
             }
             direction = Vector3.Normalize(t.position - originalPos);
         }
-        else direction = t.forward;
+        else {
+            direction = t.forward;
+            rb.velocity = new Vector3(0, rb.velocity.y, 0);
+        }
 
         // Dash
         if (canDash && dashTimer <= 0 && dashCount > 0){
@@ -72,25 +76,27 @@ public class PlayerMovement : MonoBehaviour
             UpdateDashCount();
         }
         if (!IsGrounded()){
-            t.position += new Vector3(0,-.05f,0);
+            rb.velocity += new Vector3(0,-1,0);
         }
     }
 
     IEnumerator Dash()
     {
+        dashing = true;
         dashCount++;
         dashTimer = 2f;
 
         UpdateDashCount();
 
         // TODO: Adjust these values for feel.
-        // TODO: Change dash direction to current velocity direction rather than forward?
         Vector3 forwardMove = direction * Time.deltaTime * (dashSpeed * dashCount) * (1f/maxDashes);
         for (int i = 0; i < maxDashes+1; i++){
-            t.position += forwardMove;
+            rb.velocity += forwardMove;
             if (t.position.y < 1) t.position = new Vector3(t.position.x, 1, t.position.z);
             yield return new WaitForSeconds(0.01f);
         }
+
+        dashing = false;
     }
     IEnumerator CoolDown(){
         int dashed = dashCount;
