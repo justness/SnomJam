@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Dash
-        if (canDash && dashTimer <= 0 && dashCount > 0){
+        if (canDash && dashTimer <= 0 && dashCount > 0 || !canDash && dashTimer <= 0 && dashCount == maxDashes){
             canDash = false;
             StartCoroutine(CoolDown());
         }
