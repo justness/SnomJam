@@ -21,11 +21,12 @@ public class BasicEnemy : Enemy
         GetComponent<UnityEngine.AI.NavMeshAgent>().destination = startPos;
     }
 
-    void Start()
+    void Awake()
     {
         health = 10;
         attack = 10;
         startPos = spawn.transform.position;
+        EnemyManager.EM.NewSpawn(this);
     }
 
     void Update()

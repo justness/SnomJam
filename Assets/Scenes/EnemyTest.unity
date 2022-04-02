@@ -5826,6 +5826,7 @@ GameObject:
   - component: {fileID: 2072886622}
   - component: {fileID: 2072886623}
   - component: {fileID: 2072886624}
+  - component: {fileID: 2072886625}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5959,6 +5960,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1901837861}
   speedlines: {fileID: 1287575797}
+--- !u!114 &2072886625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072886618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a19a1f9a3d51457449a9fa72dec740dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
 --- !u!1 &2144566304
 GameObject:
   m_ObjectHideFlags: 0

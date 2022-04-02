@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public bool dashing = false;
     public float dashTimer = 2f;
     public int dashCount = 0;
-    int maxDashes = 10;
+    int maxDashes = 20;
     Vector3 direction;
 
     float distToGround;
@@ -97,7 +97,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         dashing = false;
-        if (dashCount == 10) canDash = false;
+        rb.velocity = Vector3.zero;
+        if (dashCount == maxDashes) canDash = false;
     }
     IEnumerator CoolDown(){
         int dashed = dashCount;
