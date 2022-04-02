@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     Transform t;
     Rigidbody rb;
     float moveSpeed = 12f;
-    float dashSpeed = 100f;
+    float dashSpeed = 10;
 
     public TextMeshProUGUI dashCountUI;
     bool canDash = true;
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else {
             direction = t.forward;
-            rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            if (!dashing) rb.velocity = new Vector3(0, rb.velocity.y, 0);
         }
 
         // Dash
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         UpdateDashCount();
 
         // TODO: Adjust these values for feel.
-        Vector3 forwardMove = direction * Time.deltaTime * (dashSpeed * dashCount) * (1f/maxDashes);
+        Vector3 forwardMove = direction * (dashSpeed * dashCount) * (1f/maxDashes);
         for (int i = 0; i < maxDashes+1; i++){
             rb.velocity += forwardMove;
             if (t.position.y < 1) t.position = new Vector3(t.position.x, 1, t.position.z);
@@ -97,6 +97,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         dashing = false;
+        if (dashCount == 10) canDash = false;
     }
     IEnumerator CoolDown(){
         int dashed = dashCount;

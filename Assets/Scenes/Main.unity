@@ -5545,6 +5545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashCountUI: {fileID: 1054496457}
+  dashing: 0
   dashTimer: 2
   dashCount: 0
 --- !u!54 &1901837863
@@ -5555,7 +5556,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901837861}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 100
   m_UseGravity: 0
@@ -5737,7 +5738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1901837861}
-  speedlines: {fileID: 1287575794}
+  speedlines: {fileID: 1287575797}
 --- !u!1 &2144566304
 GameObject:
   m_ObjectHideFlags: 0
