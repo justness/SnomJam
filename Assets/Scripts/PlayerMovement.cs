@@ -6,6 +6,7 @@ using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
     Transform t;
+    Rigidbody rb;
     float moveSpeed = 12f;
     float dashSpeed = 100f;
 
@@ -14,13 +15,16 @@ public class PlayerMovement : MonoBehaviour
     public float dashTimer = 2f;
     public int dashCount = 0;
     int maxDashes = 10;
+    Vector3 direction;
 
     float distToGround;
 
     void Start()
     {
         t = GetComponent<Transform>();
+        rb = GetComponent<Rigidbody>();
         distToGround = GetComponent<Collider>().bounds.extents.y;
+        direction = t.forward;
     }
 
     bool IsGrounded() {
@@ -34,18 +38,24 @@ public class PlayerMovement : MonoBehaviour
         dashTimer -= Time.deltaTime;
         
         // Movement
-        if (Input.GetKey(KeyCode.W)) {
-            t.position = new Vector3(t.position.x + forwardMove.x, t.position.y, t.position.z + forwardMove.z);
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)){
+            Vector3 originalPos = t.position;
+            if (Input.GetKey(KeyCode.W)) {
+                t.position = new Vector3(t.position.x + forwardMove.x, t.position.y, t.position.z + forwardMove.z);
+            }
+            if (Input.GetKey(KeyCode.S)) {
+                t.position = new Vector3(t.position.x - forwardMove.x, t.position.y, t.position.z - forwardMove.z);
+            }
+            if (Input.GetKey(KeyCode.D)) {
+                t.position = new Vector3(t.position.x + rightMove.x, t.position.y, t.position.z + rightMove.z);
+            }
+            if (Input.GetKey(KeyCode.A)) {
+                t.position = new Vector3(t.position.x - rightMove.x, t.position.y, t.position.z - rightMove.z);
+            }
+            direction = Vector3.Normalize(t.position - originalPos);
         }
-        if (Input.GetKey(KeyCode.S)) {
-            t.position = new Vector3(t.position.x - forwardMove.x, t.position.y, t.position.z - forwardMove.z);
-        }
-        if (Input.GetKey(KeyCode.D)) {
-            t.position = new Vector3(t.position.x + rightMove.x, t.position.y, t.position.z + rightMove.z);
-        }
-        if (Input.GetKey(KeyCode.A)) {
-            t.position = new Vector3(t.position.x - rightMove.x, t.position.y, t.position.z - rightMove.z);
-        }
+        else direction = t.forward;
+
         // Dash
         if (canDash && dashTimer <= 0 && dashCount > 0){
             canDash = false;
@@ -75,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
 
         // TODO: Adjust these values for feel.
         // TODO: Change dash direction to current velocity direction rather than forward?
-        Vector3 forwardMove = t.forward * Time.deltaTime * (dashSpeed * dashCount) * (1f/maxDashes);
+        Vector3 forwardMove = direction * Time.deltaTime * (dashSpeed * dashCount) * (1f/maxDashes);
         for (int i = 0; i < maxDashes+1; i++){
             t.position += forwardMove;
             if (t.position.y < 1) t.position = new Vector3(t.position.x, 1, t.position.z);
