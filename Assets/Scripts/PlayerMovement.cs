@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
 
         UpdateDashCount();
 
+        // TODO: Adjust these values for feel.
         Vector3 forwardMove = t.forward * Time.deltaTime * (dashSpeed * dashCount) * (1f/maxDashes);
         for (int i = 0; i < maxDashes+1; i++){
             t.position += forwardMove;
