@@ -92,7 +92,6 @@ public class PlayerMovement : MonoBehaviour
         Vector3 forwardMove = direction * (dashSpeed * dashCount) * (1f/maxDashes);
         for (int i = 0; i < maxDashes+1; i++){
             rb.velocity += forwardMove;
-            if (t.position.y < 1) t.position = new Vector3(t.position.x, 1, t.position.z);
             yield return new WaitForSeconds(0.01f);
         }
 

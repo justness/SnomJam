@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class BasicEnemy : Enemy
 {
-    public GameObject spawn;
+    public Vector3 spawn;
     public GameObject player;
+
+    float attackRange = 3;
+
+    public Material lit;
+    public Material red;
 
     public override void Attack()
     {
@@ -18,19 +23,24 @@ public class BasicEnemy : Enemy
     }
     public override void Reset()
     {
-        GetComponent<UnityEngine.AI.NavMeshAgent>().destination = startPos;
+        GetComponent<UnityEngine.AI.NavMeshAgent>().destination = spawn;
     }
 
     void Awake()
     {
         health = 10;
         attack = 10;
-        startPos = spawn.transform.position;
-        EnemyManager.EM.NewSpawn(this);
+        spawn = transform.position;
+        player = GameObject.FindGameObjectsWithTag("Player")[0];
     }
 
     void Update()
     {
         Follow();
+
+        if (Vector3.Distance(player.transform.position, transform.position) < attackRange){
+            GetComponent<MeshRenderer>().material = red;
+        }
+        else GetComponent<MeshRenderer>().material = lit;
     }
 }
