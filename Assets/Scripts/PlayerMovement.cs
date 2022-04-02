@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         }
         // Air time
         if (IsGrounded() && canDash && Input.GetKeyDown(KeyCode.Space)){
-            t.position += new Vector3(0,5,0);
+            StartCoroutine(Jump());
             dashCount++;
             dashTimer = 2f;
             UpdateDashCount();
@@ -89,6 +89,12 @@ public class PlayerMovement : MonoBehaviour
         }
         canDash = true;
         dashCount = 0;
+    }
+    IEnumerator Jump(){
+        for (int i = 0; i < 5; i++){
+            t.position += new Vector3(0,1,0);
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 
     void UpdateDashCount(){
