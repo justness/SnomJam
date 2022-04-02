@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public bool dashing = false;
     public float dashTimer = 2f;
     public int dashCount = 0;
-    int maxDashes = 10;
+    int maxDashes = 20;
     Vector3 direction;
 
     float distToGround;
@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Dash
-        if (canDash && dashTimer <= 0 && dashCount > 0){
+        if (canDash && dashTimer <= 0 && dashCount > 0 || !canDash && dashTimer <= 0 && dashCount == maxDashes){
             canDash = false;
             StartCoroutine(CoolDown());
         }
@@ -92,12 +92,12 @@ public class PlayerMovement : MonoBehaviour
         Vector3 forwardMove = direction * (dashSpeed * dashCount) * (1f/maxDashes);
         for (int i = 0; i < maxDashes+1; i++){
             rb.velocity += forwardMove;
-            if (t.position.y < 1) t.position = new Vector3(t.position.x, 1, t.position.z);
             yield return new WaitForSeconds(0.01f);
         }
 
         dashing = false;
-        if (dashCount == 10) canDash = false;
+        rb.velocity = Vector3.zero;
+        if (dashCount == maxDashes) canDash = false;
     }
     IEnumerator CoolDown(){
         int dashed = dashCount;

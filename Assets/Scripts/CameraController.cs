@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
 {
     public GameObject player;
     Transform t;
+    float height = 2f;
     float rotateSpeed = 20f;
 
     void Start()
@@ -21,6 +22,6 @@ public class CameraController : MonoBehaviour
         player.transform.Rotate(-rotateVertical*rotateSpeed, rotateHorizontal*rotateSpeed, 0, Space.Self);
 
         t.forward = player.transform.forward;
-        t.position = player.transform.position;
+        t.position = player.transform.position + new Vector3(0,height,0);
     }
 }
