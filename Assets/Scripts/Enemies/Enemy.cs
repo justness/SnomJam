@@ -7,6 +7,7 @@ public abstract class Enemy: MonoBehaviour
     public int health;
     public int attack;
     public Vector3 startPos;
+    public GameObject player;
 
     public abstract void Attack();
     public abstract void Follow();

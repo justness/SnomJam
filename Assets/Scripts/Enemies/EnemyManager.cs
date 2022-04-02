@@ -10,6 +10,7 @@ public class EnemyManager : MonoBehaviour
 
     public void NewSpawn(Enemy e){
         enemies.Add(e);
+        // TODO: Reset some enemy positions/Set them to patrol if too many are spawned.
     }
 
     void Awake()

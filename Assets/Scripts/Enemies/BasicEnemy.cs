@@ -1,29 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BasicEnemy : Enemy
 {
     public Vector3 spawn;
-    public GameObject player;
 
-    float attackRange = 3;
+    float speed = 5;
+    float attackRecovery = 0;
+    NavMeshAgent agent;
+    bool resetting;
 
     public Material lit;
     public Material red;
 
     public override void Attack()
     {
+        agent.speed = 0;
+        GetComponent<MeshRenderer>().material = red;
         // Play animation, Apply any effects
-        return;
+        attackRecovery = 5;
     }
     public override void Follow()
     {
-        GetComponent<UnityEngine.AI.NavMeshAgent>().destination = player.transform.position;
+        GetComponent<MeshRenderer>().material = lit;
+        agent.speed = speed;
+        agent.destination = player.transform.position;
     }
     public override void Reset()
     {
-        GetComponent<UnityEngine.AI.NavMeshAgent>().destination = spawn;
+        resetting = true;
+        GetComponent<MeshRenderer>().material = lit;
+        agent.speed = speed;
+        agent.destination = spawn;
     }
 
     void Awake()
@@ -32,15 +42,20 @@ public class BasicEnemy : Enemy
         attack = 10;
         spawn = transform.position;
         player = GameObject.FindGameObjectsWithTag("Player")[0];
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
 
     void Update()
     {
-        Follow();
-
-        if (Vector3.Distance(player.transform.position, transform.position) < attackRange){
-            GetComponent<MeshRenderer>().material = red;
+        if (attackRecovery <= 0 && !resetting) {
+            attackRecovery = 0;
+            Follow();
         }
-        else GetComponent<MeshRenderer>().material = lit;
+        else attackRecovery -= Time.deltaTime;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player") Attack();
     }
 }
