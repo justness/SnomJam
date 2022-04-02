@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,16 +6,18 @@ using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
-    Transform t;
-    Rigidbody rb;
-    float moveSpeed = 12f;
-    float dashSpeed = 10;
-
+    [SerializeField] float moveSpeed = 12f;
+    [SerializeField] float dashSpeed = 10;
+    [SerializeField] float jumpSpeed = 0.1f;
     public TextMeshProUGUI dashCountUI;
-    bool canDash = true;
     public bool dashing = false;
     public float dashTimer = 2f;
     public int dashCount = 0;
+    
+    Transform t;
+    Rigidbody rb;
+
+    bool canDash = true;
     int maxDashes = 20;
     Vector3 direction;
 
@@ -32,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Vector3 forwardMove = t.forward * Time.deltaTime * moveSpeed;
         Vector3 rightMove = t.right * Time.deltaTime * moveSpeed;
@@ -41,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
         // Movement
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)){
             Vector3 originalPos = t.position;
+            
             if (Input.GetKey(KeyCode.W)) {
                 t.position = new Vector3(t.position.x + forwardMove.x, t.position.y, t.position.z + forwardMove.z);
             }
@@ -53,13 +57,17 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.A)) {
                 t.position = new Vector3(t.position.x - rightMove.x, t.position.y, t.position.z - rightMove.z);
             }
+            
             direction = Vector3.Normalize(t.position - originalPos);
         }
         else {
             direction = t.forward;
             if (!dashing) rb.velocity = new Vector3(0, rb.velocity.y, 0);
         }
+    }
 
+    void Update()
+    {
         // Dash
         if (canDash && dashTimer <= 0 && dashCount > 0 || !canDash && dashTimer <= 0 && dashCount == maxDashes){
             canDash = false;
@@ -68,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
         if (canDash && Input.GetMouseButtonDown(0)){
             StartCoroutine(Dash());
         }
+        
         // Air time
         if (IsGrounded() && canDash && Input.GetKeyDown(KeyCode.Space)){
             StartCoroutine(Jump());
@@ -75,8 +84,14 @@ public class PlayerMovement : MonoBehaviour
             dashTimer = 2f;
             UpdateDashCount();
         }
-        if (!IsGrounded()){
+        
+        if (!IsGrounded()) {
             rb.velocity += new Vector3(0,-1,0);
+        }
+
+        if (rb.transform.position.y < 0)
+        {
+            rb.transform.position = new Vector3(rb.transform.position.x, 0, rb.transform.position.z);
         }
     }
 
@@ -99,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = Vector3.zero;
         if (dashCount == maxDashes) canDash = false;
     }
+    
     IEnumerator CoolDown(){
         int dashed = dashCount;
         for (int i = 0; i < dashed; i++){
@@ -109,9 +125,10 @@ public class PlayerMovement : MonoBehaviour
         canDash = true;
         dashCount = 0;
     }
+    
     IEnumerator Jump(){
-        for (int i = 0; i < 5; i++){
-            t.position += new Vector3(0,1,0);
+        for (int i = 0; i < 10; i++) {
+            t.position += new Vector3(0, 1, 0);
             yield return new WaitForSeconds(0.01f);
         }
     }

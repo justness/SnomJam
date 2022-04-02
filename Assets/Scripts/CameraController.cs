@@ -5,23 +5,19 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public GameObject player;
-    Transform t;
-    float height = 2f;
-    float rotateSpeed = 20f;
+    [SerializeField] float rotateSpeed = 5;
 
     void Start()
     {
-        t = GetComponent<Transform>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         float rotateHorizontal = Input.GetAxis ("Mouse X");
         float rotateVertical = Input.GetAxis ("Mouse Y");
-        player.transform.Rotate(-rotateVertical*rotateSpeed, rotateHorizontal*rotateSpeed, 0, Space.Self);
-
-        t.forward = player.transform.forward;
-        t.position = player.transform.position + new Vector3(0,height,0);
+        
+        transform.Rotate(-rotateVertical * rotateSpeed, 0, 0, Space.Self);
+        player.transform.Rotate(0, rotateHorizontal * rotateSpeed, 0, Space.Self);
     }
 }
