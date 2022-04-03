@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
+    [SerializeField] SoundController wallSound;
+    
     public bool isInTutorial = true;
     public Transform tutorialWall;
 
@@ -62,6 +64,7 @@ public class TutorialManager : MonoBehaviour
     
     void StartGame()
     {
+        wallSound.PlaySound();
         isInTutorial = false;
         waves.StartWaves();
     }

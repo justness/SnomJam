@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] SoundController footstepSounds;
+    [SerializeField] SoundController dashSound;
+    [SerializeField] SoundController jumpSound;
+    
     [SerializeField] float moveSpeed = 100f;
     public TextMeshProUGUI dashCountUI;
     public Image dashChargeUI;
@@ -67,6 +71,11 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity += new Vector3(-rightMove.x, 0, -rightMove.z);
             }
 
+            if (IsGrounded())
+            {
+                footstepSounds.PlaySound();
+            }
+
             anim.SetBool("Running", true);
         }
         else
@@ -111,6 +120,8 @@ public class PlayerMovement : MonoBehaviour
                 anim.ResetTrigger("Jump");
 
                 StartCoroutine(Jump());
+                
+                jumpSound.PlaySound();
             }
         }
         else
@@ -126,6 +137,8 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Dash()
     {
+        dashSound.PlaySound();
+        
         anim.SetTrigger("Attack");
 
         dashing = true;

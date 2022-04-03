@@ -1,29 +1,27 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundController : MonoBehaviour
 {
-    [SerializeField] AudioClip sound;
+    [SerializeField] float volume = 0.1f;
+    [SerializeField] AudioClip[] sounds;
     
     AudioSource src;
 
     void Start()
     {
-        src = GetComponent<AudioSource>();
-
-        if (src == null)
-        {
-            src = gameObject.AddComponent<AudioSource>();
-            src.playOnAwake = false;
-        }
-
-        src.clip = sound;
+        src = gameObject.AddComponent<AudioSource>();
+        src.playOnAwake = false;
+        src.volume = volume;
     }
 
     public void PlaySound()
     {
-        src.Play();
+        if (!src.isPlaying)
+        {
+            src.clip = sounds[Random.Range(0, sounds.Length)];
+            src.Play();
+        }
     }
 }

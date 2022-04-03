@@ -6,6 +6,8 @@ using UnityEngine.AI;
 
 public class BasicEnemy : Enemy
 {
+    [SerializeField] SoundController enemySounds;
+    
     public Vector3 spawn;
 
     float speed = 5;
@@ -23,6 +25,8 @@ public class BasicEnemy : Enemy
         ps.health -= attack;
         ps.CheckHealth();
         attackRecovery = 5;
+        
+        enemySounds.PlaySound();
     }
     public override void Follow()
     {

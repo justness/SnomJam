@@ -791,6 +791,7 @@ GameObject:
   - component: {fileID: 5771055440617251187}
   - component: {fileID: 5771055440617251196}
   - component: {fileID: 7256663094835527610}
+  - component: {fileID: -6556939688196400166}
   m_Layer: 0
   m_Name: Enemy Hoplite
   m_TagString: Enemy
@@ -871,9 +872,8 @@ MonoBehaviour:
   attack: 0
   startPos: {x: 0, y: 0, z: 0}
   player: {fileID: 0}
+  enemySounds: {fileID: -6556939688196400166}
   spawn: {x: 0, y: 0, z: 0}
-  lit: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  red: {fileID: 2100000, guid: adc246b9325a0624fbcaf9128c495c0e, type: 2}
 --- !u!136 &7256663094835527610
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -888,6 +888,28 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &-6556939688196400166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5618766062445842166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b554b7eddb7720640855b18266f6c5fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volume: 0.1
+  sounds:
+  - {fileID: 8300000, guid: f0d94385495398343b144b74f10a4377, type: 3}
+  - {fileID: 8300000, guid: 10903fa54e98eae4fbbfc90aebe366fb, type: 3}
+  - {fileID: 8300000, guid: 0414e5d0669a2f24287148647c592f1b, type: 3}
+  - {fileID: 8300000, guid: 19167f7be35b996488ce4846ceb08cf2, type: 3}
+  - {fileID: 8300000, guid: dc79b06479e04a3468100b9f53105f76, type: 3}
+  - {fileID: 8300000, guid: f9ead8433badd9d438149929e991178e, type: 3}
+  - {fileID: 8300000, guid: 9a8bb9830806b7046a9c1df4054a1e09, type: 3}
+  - {fileID: 8300000, guid: 137d0bd507debd747a229840dcfabca3, type: 3}
 --- !u!1 &5935644517876314059
 GameObject:
   m_ObjectHideFlags: 0
