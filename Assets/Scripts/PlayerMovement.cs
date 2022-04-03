@@ -192,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            rb.velocity += new Vector3(0, 8 - i, 0);
+            rb.velocity += new Vector3(0, 5 - i, 0);
             yield return new WaitForSeconds(0.01f);
         }
     }
