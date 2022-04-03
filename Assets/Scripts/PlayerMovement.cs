@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
 
     bool canDash = true;
-    int maxDashes = 20;
+    int maxDashes = 10;
 
     float distToGround;
     
@@ -111,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
 
         float boost = dashCharge+(dashCount*.2f);
         rb.velocity = t.forward*moveSpeed*boost;
-        yield return new WaitForSeconds(.8f);
+        yield return new WaitForSeconds(.1f*dashCount);
 
         dashing = false;
         rb.velocity = Vector3.zero;
@@ -122,12 +122,12 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator FovChange(){
         for (int i = 0; i < 4; i++){
-            Camera.main.fieldOfView += i*2;
-            yield return new WaitForSeconds(.025f);
+            Camera.main.fieldOfView += i;
+            yield return new WaitForSeconds(.0125f);
         }
         for (int i = 0; i < 4; i++){
-            Camera.main.fieldOfView -= i*2;
-            yield return new WaitForSeconds(.025f);
+            Camera.main.fieldOfView -= i;
+            yield return new WaitForSeconds(.0125f);
         }
     }
     
