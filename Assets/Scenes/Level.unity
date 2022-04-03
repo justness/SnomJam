@@ -887,6 +887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: {fileID: 5618766062445842166, guid: fe30fbd4e6e20d34080eedac5d554fef, type: 3}
   maxNumEnemies: 10
+  delayLength: 2
   spawnDelay: 0
   canSpawn: 0
   numSpawned: 0
@@ -902,7 +903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb6e9b6132f6d44e9aa453d6b082d5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveCounts: 050000000a0000000f00000014000000
+  waveCounts: 050000000c000000140000001e000000
   enemiesToGo: 5
   waveUI: {fileID: 1811101144}
 --- !u!1 &841797422
@@ -1277,7 +1278,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<fade d=3><b><i>Click</i></b> to dash
+  m_text: '<fade d=3><b><i>Click and hold</i></b> to dash
 
     Build up your <color=#FFEA80>dash
     count</color> to move faster
@@ -1540,7 +1541,7 @@ MonoBehaviour:
     Dashing
     damages enemies
 
-    Damage enemies to regain <color=#FF8080>health</color><?next>'
+    Kill enemies to regain <color=#FF8080>health</color><?next>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 38b6f3badbd20844ebb47312458e5445, type: 2}
   m_sharedMaterial: {fileID: 2997413314028793294, guid: 38b6f3badbd20844ebb47312458e5445, type: 2}
