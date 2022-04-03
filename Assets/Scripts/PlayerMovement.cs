@@ -6,9 +6,7 @@ using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 12f;
-    [SerializeField] float dashSpeed = 10;
-    [SerializeField] float jumpSpeed = 0.1f;
+    [SerializeField] float moveSpeed = 10f;
     public TextMeshProUGUI dashCountUI;
     public bool dashing = false;
     public float dashTimer = 2f;
@@ -19,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
 
     bool canDash = true;
     int maxDashes = 20;
-    Vector3 direction;
 
     float distToGround;
     
@@ -30,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
         t = GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
         distToGround = GetComponent<Collider>().bounds.extents.y;
-        direction = t.forward;
 
         anim = GetComponentInChildren<Animator>();
     }
@@ -50,24 +46,20 @@ public class PlayerMovement : MonoBehaviour
             Vector3 originalPos = t.position;
             
             if (Input.GetKey(KeyCode.W)) {
-                t.position = new Vector3(t.position.x + forwardMove.x, t.position.y, t.position.z + forwardMove.z);
+                rb.velocity += new Vector3(forwardMove.x, 0, forwardMove.z);
             }
             if (Input.GetKey(KeyCode.S)) {
-                t.position = new Vector3(t.position.x - forwardMove.x, t.position.y, t.position.z - forwardMove.z);
+                rb.velocity += new Vector3(-forwardMove.x, 0, -forwardMove.z);
             }
             if (Input.GetKey(KeyCode.D)) {
-                t.position = new Vector3(t.position.x + rightMove.x, t.position.y, t.position.z + rightMove.z);
+                rb.velocity += new Vector3(rightMove.x, 0, rightMove.z);
             }
             if (Input.GetKey(KeyCode.A)) {
-                t.position = new Vector3(t.position.x - rightMove.x, t.position.y, t.position.z - rightMove.z);
+                rb.velocity += new Vector3(-rightMove.x, 0, -rightMove.z);
             }
-            
-            direction = Vector3.Normalize(t.position - originalPos);
-            
             anim.SetBool("Running", true);
         }
         else {
-            direction = t.forward;
             if (!dashing) rb.velocity = new Vector3(0, rb.velocity.y, 0);
             
             anim.SetBool("Running", false);
@@ -114,12 +106,9 @@ public class PlayerMovement : MonoBehaviour
 
         UpdateDashCount();
 
-        // TODO: Adjust these values for feel.
-        Vector3 forwardMove = direction * (dashSpeed * dashCount) * (1f/maxDashes);
-        for (int i = 0; i < maxDashes+1; i++){
-            rb.velocity += forwardMove;
-            yield return new WaitForSeconds(0.01f);
-        }
+        if (rb.velocity.magnitude > 0) rb.velocity = rb.velocity*(1+(dashCount*.2f));
+        else rb.velocity = t.forward*moveSpeed*(1+(dashCount*.2f));
+        yield return new WaitForSeconds(.25f);
 
         dashing = false;
         rb.velocity = Vector3.zero;
@@ -141,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
     
     IEnumerator Jump(){
         for (int i = 0; i < 5; i++) {
-            rb.velocity += new Vector3(0, 15-i, 0);
+            rb.velocity += new Vector3(0, 10-i, 0);
             yield return new WaitForSeconds(0.01f);
         }
     }
