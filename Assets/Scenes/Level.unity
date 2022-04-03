@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb6e9b6132f6d44e9aa453d6b082d5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveCounts: 01000000020000000300000004000000
+  waveCounts: 050000000a0000000f00000014000000
   enemiesToGo: 5
   waveUI: {fileID: 1811101144}
 --- !u!1 &841797422
@@ -469,10 +469,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 236403386684976390, guid: 8d57788a35ecb444e9e409600355dc34, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4286611711
-      objectReference: {fileID: 0}
     - target: {fileID: 4349993931975644027, guid: 8d57788a35ecb444e9e409600355dc34, type: 3}
       propertyPath: m_Name
       value: UI
