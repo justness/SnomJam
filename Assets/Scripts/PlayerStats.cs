@@ -18,7 +18,8 @@ public class PlayerStats : MonoBehaviour
 
     void Update()
     {
-        healthbar.GetComponent<RectTransform>().sizeDelta =  new Vector2 (18*health, healthbar.GetComponent<RectTransform>().sizeDelta.y);
+        // TODO: Update this to work for a circular/non-linear healthbar.
+        //healthbar.GetComponent<RectTransform>().sizeDelta =  new Vector2 (18*health, healthbar.GetComponent<RectTransform>().sizeDelta.y);
     }
 
     void OnCollisionEnter(Collision collision)

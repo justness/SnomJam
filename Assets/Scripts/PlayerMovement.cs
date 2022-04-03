@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (rb.velocity.magnitude > 0) rb.velocity = rb.velocity*(1+(dashCount*.2f));
         else rb.velocity = t.forward*moveSpeed*(1+(dashCount*.2f));
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitForSeconds(.5f);
 
         dashing = false;
         rb.velocity = Vector3.zero;
