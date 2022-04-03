@@ -9,7 +9,7 @@ public class PlayerStats : MonoBehaviour
     public int health = 100;
     int attack = 10;
 
-    public Image healthbar;
+    [SerializeField] Transform healthBar;
 
     EnemyManager manager;
 
@@ -21,8 +21,7 @@ public class PlayerStats : MonoBehaviour
 
     void Update()
     {
-        // TODO: Update this to work for a circular/non-linear healthbar.
-        //healthbar.GetComponent<RectTransform>().sizeDelta =  new Vector2 (18*health, healthbar.GetComponent<RectTransform>().sizeDelta.y);
+        healthBar.transform.localRotation = Quaternion.Euler(Vector3.forward * (0.7f * (100 - health) + 20));
     }
 
     void OnCollisionEnter(Collision collision)
