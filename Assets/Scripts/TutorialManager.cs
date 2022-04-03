@@ -13,14 +13,11 @@ public class TutorialManager : MonoBehaviour
     int popupNum;
 
     WaveController waves;
-    bool hasStartedGame;
     
     TextAnimator anim;
 
     void Start()
     {
-        isInTutorial = false;
-        
         waves = FindObjectOfType<WaveController>();
         
         Invoke("ShowPopup", 2);
@@ -28,7 +25,7 @@ public class TutorialManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (hasStartedGame)
+        if (!isInTutorial)
         {
             if (tutorialWall.localPosition.y < 0.25f)
             {
@@ -65,7 +62,7 @@ public class TutorialManager : MonoBehaviour
     
     void StartGame()
     {
+        isInTutorial = false;
         waves.StartWaves();
-        hasStartedGame = true;
     }
 }
