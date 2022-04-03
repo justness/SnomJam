@@ -47,16 +47,16 @@ public class PlayerMovement : MonoBehaviour
             Vector3 originalPos = t.position;
             
             if (Input.GetKey(KeyCode.W)) {
-                rb.velocity += new Vector3(0, 0, forwardMove.z);
+                rb.velocity += new Vector3(forwardMove.x, 0, forwardMove.z);
             }
             if (Input.GetKey(KeyCode.S)) {
-                rb.velocity += new Vector3(0, 0, -forwardMove.z);
+                rb.velocity += new Vector3(-forwardMove.x, 0, -forwardMove.z);
             }
             if (Input.GetKey(KeyCode.D)) {
-                rb.velocity += new Vector3(rightMove.x, 0, 0);
+                rb.velocity += new Vector3(rightMove.x, 0, rightMove.z);
             }
             if (Input.GetKey(KeyCode.A)) {
-                rb.velocity += new Vector3(-rightMove.x, 0, 0);
+                rb.velocity += new Vector3(-rightMove.x, 0, -rightMove.z);
             }
             anim.SetBool("Running", true);
         }
