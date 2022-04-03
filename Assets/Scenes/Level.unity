@@ -2141,6 +2141,9 @@ MonoBehaviour:
   tutorialWall: {fileID: 1755427297}
   popups:
   - {fileID: 139499048}
+  - {fileID: 1061620657}
+  - {fileID: 1573171323}
+  - {fileID: 763061847}
 --- !u!4 &1755427297 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3136396474752220711, guid: ddceaabde2c9b4e4a99b7d276ab082f6, type: 3}
