@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class BasicEnemy : Enemy
 {
     [SerializeField] SoundController enemySounds;
-    
+
     public Vector3 spawn;
 
     float speed = 5;
@@ -19,13 +19,17 @@ public class BasicEnemy : Enemy
 
     public override void Attack()
     {
+        anim.ResetTrigger("Attack");
+
         agent.speed = 0;
         // Currently, damage is guaranteed. Should another collision be checked to see if the attack landed after getting in range?
         PlayerStats ps = player.GetComponent<PlayerStats>();
         ps.health -= attack;
         ps.CheckHealth();
         attackRecovery = 5;
-        
+
+        anim.SetTrigger("Attack");
+
         enemySounds.PlaySound();
     }
     public override void Follow()
@@ -47,13 +51,14 @@ public class BasicEnemy : Enemy
         spawn = transform.position;
         player = GameObject.FindGameObjectsWithTag("Player")[0];
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        
+
         anim = GetComponent<Animator>();
     }
 
     void Update()
     {
-        if (attackRecovery <= 0 && !resetting) {
+        if (attackRecovery <= 0 && !resetting)
+        {
             attackRecovery = 0;
             Follow();
         }
@@ -73,4 +78,14 @@ public class BasicEnemy : Enemy
     {
         if (collision.gameObject.tag.Equals("Player")) Attack();
     }
+
+    // public void Death()
+    // {
+    //     agent.enabled = false;
+    //     anim.SetBool("Dead", true);
+    //     Destroy(this.gameObject, 5f);
+    //     this.enabled = false;
+
+
+    // }
 }

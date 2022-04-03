@@ -30,26 +30,38 @@ public class PlayerStats : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag.Equals("Enemy") && gameObject.GetComponent<PlayerMovement>().dashing) {
+        if (collision.gameObject.tag.Equals("Enemy") && gameObject.GetComponent<PlayerMovement>().dashing)
+        {
             int enemyHealth = collision.gameObject.GetComponent<Enemy>().health;
             if (enemyHealth <= attack * gameObject.GetComponent<PlayerMovement>().dashCount)
             {
                 manager.RemoveSpawn(collision.gameObject.GetComponent<Enemy>());
 
-                if (health + (2*enemyHealth) < maxHealth) health += (2*enemyHealth);
+                if (health + (2 * enemyHealth) < maxHealth) health += (2 * enemyHealth);
                 else health = maxHealth;
 
-                Instantiate(blood, collision.gameObject.transform.position + new Vector3(0,1,0), Quaternion.identity);
+                Instantiate(blood, collision.gameObject.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                 Destroy(collision.gameObject);
+
+                // if (collision.gameObject.GetComponent<BasicEnemy>())
+                // {
+                //     print("dead");
+                //     collision.gameObject.GetComponent<BasicEnemy>().Death();
+                // }
+                // else
+                // {
+                // }
             }
         }
 
-        if (collision.gameObject.tag.Equals("Breakable")) {
+        if (collision.gameObject.tag.Equals("Breakable"))
+        {
             // Break object if attack value * dashCount > breakable's integrity value
         }
     }
 
-    public void CheckHealth(){
+    public void CheckHealth()
+    {
         if (health <= 0) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
