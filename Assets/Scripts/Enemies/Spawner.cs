@@ -5,22 +5,35 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public GameObject enemyType;
-    public int numEnemies = 10;
+    public int maxNumEnemies = 10;
     float delayLength = 5f;
     public float spawnDelay;
+
+    EnemyManager manager;
+    [HideInInspector] public bool canSpawn;
+    [HideInInspector] public int numSpawned;
 
     void Start()
     {
         spawnDelay = delayLength;
+        manager = GetComponent<EnemyManager>();
     }
 
     void Update()
     {
-        if (spawnDelay <= 0 && numEnemies != 0){
-            GameObject newEnemy = Instantiate(enemyType, transform);
-            numEnemies--;
-            spawnDelay = delayLength;
+        if (canSpawn && spawnDelay <= 0 && numSpawned < maxNumEnemies) {
+            Spawn();
         }
+        
         spawnDelay -= Time.deltaTime;
+    }
+
+    public void Spawn()
+    {
+        GameObject newEnemy = Instantiate(enemyType, transform);
+        manager.NewSpawn(newEnemy.GetComponent<Enemy>());
+        spawnDelay = delayLength;
+
+        numSpawned++;
     }
 }

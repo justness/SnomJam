@@ -11,9 +11,12 @@ public class PlayerStats : MonoBehaviour
 
     public Image healthbar;
 
+    EnemyManager manager;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        manager = FindObjectOfType<EnemyManager>();
     }
 
     void Update()
@@ -24,12 +27,17 @@ public class PlayerStats : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy" && gameObject.GetComponent<PlayerMovement>().dashing) {
+        if (collision.gameObject.tag.Equals("Enemy") && gameObject.GetComponent<PlayerMovement>().dashing) {
             Debug.Log("hit enemy");
-            if (collision.gameObject.GetComponent<Enemy>().health <= attack * gameObject.GetComponent<PlayerMovement>().dashCount) Destroy(collision.gameObject);
+            
+            if (collision.gameObject.GetComponent<Enemy>().health <= attack * gameObject.GetComponent<PlayerMovement>().dashCount)
+            {
+                manager.RemoveSpawn(collision.gameObject.GetComponent<Enemy>());
+                Destroy(collision.gameObject);
+            }
         }
 
-        if (collision.gameObject.tag == "Breakable") {
+        if (collision.gameObject.tag.Equals("Breakable")) {
             // Break object if attack value * dashCount > breakable's integrity value
         }
     }
