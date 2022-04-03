@@ -63,10 +63,14 @@ public class PlayerMovement : MonoBehaviour
             }
             
             direction = Vector3.Normalize(t.position - originalPos);
+            
+            anim.SetBool("Running", true);
         }
         else {
             direction = t.forward;
             if (!dashing) rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            
+            anim.SetBool("Running", false);
         }
     }
 

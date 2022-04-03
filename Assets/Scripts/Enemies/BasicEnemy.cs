@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,23 +16,25 @@ public class BasicEnemy : Enemy
     public Material lit;
     public Material red;
 
+    Animator anim;
+
     public override void Attack()
     {
         agent.speed = 0;
-        GetComponent<MeshRenderer>().material = red;
+        //GetComponent<MeshRenderer>().material = red;
         // Play animation, Apply any effects
         attackRecovery = 5;
     }
     public override void Follow()
     {
-        GetComponent<MeshRenderer>().material = lit;
+        //GetComponent<MeshRenderer>().material = lit;
         agent.speed = speed;
         agent.destination = player.transform.position;
     }
     public override void Reset()
     {
         resetting = true;
-        GetComponent<MeshRenderer>().material = lit;
+        //GetComponent<MeshRenderer>().material = lit;
         agent.speed = speed;
         agent.destination = spawn;
     }
@@ -43,6 +46,8 @@ public class BasicEnemy : Enemy
         spawn = transform.position;
         player = GameObject.FindGameObjectsWithTag("Player")[0];
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -52,6 +57,15 @@ public class BasicEnemy : Enemy
             Follow();
         }
         else attackRecovery -= Time.deltaTime;
+
+        if (agent.speed > 0)
+        {
+            anim.SetBool("isWalking", true);
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
