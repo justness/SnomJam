@@ -9,6 +9,7 @@ public class PlayerStats : MonoBehaviour
     Rigidbody rb;
     [SerializeField] int maxHealth = 100;
     public int health;
+    public Image hurt;
     int attack = 10;
 
     [SerializeField] Transform healthBar;
@@ -62,6 +63,14 @@ public class PlayerStats : MonoBehaviour
 
     public void CheckHealth()
     {
+        if (!gameObject.GetComponent<PlayerMovement>().dashing) StartCoroutine(HurtUI());
         if (health <= 0) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    IEnumerator HurtUI(){
+        for (int i = 0; i < 8; i++){
+            hurt.color = new Color (hurt.color.r, hurt.color.g, hurt.color.b, .2f-i*.05f);
+            yield return new WaitForSeconds(0.01f);
+        }
+        hurt.color = new Color (hurt.color.r, hurt.color.g, hurt.color.b, 0);
     }
 }
