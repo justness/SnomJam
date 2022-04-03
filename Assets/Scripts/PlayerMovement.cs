@@ -123,11 +123,11 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator FovChange(){
         for (int i = 0; i < 4; i++){
             Camera.main.fieldOfView += i;
-            yield return new WaitForSeconds(.0125f);
+            yield return new WaitForSeconds(.02f*dashCount);
         }
         for (int i = 0; i < 4; i++){
             Camera.main.fieldOfView -= i;
-            yield return new WaitForSeconds(.0125f);
+            yield return new WaitForSeconds(.02f*dashCount);
         }
     }
     
