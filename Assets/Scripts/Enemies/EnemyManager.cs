@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    public static EnemyManager EM;
-
     public List<Enemy> enemies = new List<Enemy>();
 
     WaveController waves;
@@ -24,9 +22,5 @@ public class EnemyManager : MonoBehaviour
     void Awake()
     {
         waves = GetComponent<WaveController>();
-        
-        if(EM != null) GameObject.Destroy(EM);
-        else EM = this;
-        DontDestroyOnLoad(this);
     }
 }

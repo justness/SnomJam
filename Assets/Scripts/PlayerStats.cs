@@ -26,7 +26,6 @@ public class PlayerStats : MonoBehaviour
     void Update()
     {
         healthBar.transform.localRotation = Quaternion.Euler(Vector3.forward * (0.7f * (100 - health) + 20));
-        if (health <= 0) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -48,5 +47,9 @@ public class PlayerStats : MonoBehaviour
         if (collision.gameObject.tag.Equals("Breakable")) {
             // Break object if attack value * dashCount > breakable's integrity value
         }
+    }
+
+    public void CheckHealth(){
+        if (health <= 0) SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
