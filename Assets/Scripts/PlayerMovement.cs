@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     bool IsGrounded() {
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.5f);
     }
 
     void FixedUpdate()
@@ -84,15 +84,12 @@ public class PlayerMovement : MonoBehaviour
         }
         
         // Air time
-        if (IsGrounded() && canDash && Input.GetKeyDown(KeyCode.Space)){
+        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space)){
             StartCoroutine(Jump());
-            dashCount++;
-            dashTimer = 2f;
-            UpdateDashCount();
         }
         
         if (!IsGrounded()) {
-            rb.velocity += new Vector3(0,-.75f,0);
+            rb.velocity += new Vector3(0,-.3f,0);
         }
 
         if (rb.transform.position.y < 0)

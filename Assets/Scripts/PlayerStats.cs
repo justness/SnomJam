@@ -36,7 +36,7 @@ public class PlayerStats : MonoBehaviour
             {
                 manager.RemoveSpawn(collision.gameObject.GetComponent<Enemy>());
 
-                if (health + enemyHealth < maxHealth) health += enemyHealth;
+                if (health + (2*enemyHealth) < maxHealth) health += (2*enemyHealth);
                 else health = maxHealth;
 
                 Destroy(collision.gameObject);
