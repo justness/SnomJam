@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Febucci.UI;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class WaveController : MonoBehaviour
 {
@@ -28,9 +29,16 @@ public class WaveController : MonoBehaviour
 
     void Update()
     {
-        if (!tutorial.isInTutorial && waveNum < waveCounts.Length && enemiesToGo <= 0)
+        if (!tutorial.isInTutorial && enemiesToGo <= 0)
         {
-            SetSpawnerValues(waveNum + 1);
+            if (waveNum < waveCounts.Length)
+            {
+                SetSpawnerValues(waveNum + 1);
+            }
+            else
+            {
+                SetSpawnerValues(waveCounts.Length);
+            }
         }
     }
 
