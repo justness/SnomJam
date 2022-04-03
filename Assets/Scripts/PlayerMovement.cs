@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(.8f);
 
         dashing = false;
-        rb.velocity = Vector3.zero;
+        //rb.velocity = Vector3.zero;
         if (dashCount == maxDashes) canDash = false;
         
         anim.ResetTrigger("Attack");
@@ -147,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
     
     IEnumerator Jump() {
         for (int i = 0; i < 5; i++) {
-            rb.velocity += new Vector3(0, 10-i, 0);
+            rb.velocity += new Vector3(0, 8-i, 0);
             yield return new WaitForSeconds(0.01f);
         }
     }
