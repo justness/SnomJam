@@ -108,9 +108,9 @@ public class PlayerMovement : MonoBehaviour
         dashing = true;
         dashCount++;
         dashTimer = 2f;
-        Camera.main.fieldOfView = 75;
 
         UpdateDashCount();
+        StartCoroutine(FovChange());
 
         float boost = dashCharge+(dashCount*.2f);
         rb.velocity = t.forward*moveSpeed*boost;
@@ -119,9 +119,19 @@ public class PlayerMovement : MonoBehaviour
         dashing = false;
         rb.velocity = Vector3.zero;
         if (dashCount == maxDashes) canDash = false;
-        Camera.main.fieldOfView = 60;
         
         anim.ResetTrigger("Attack");
+    }
+
+    IEnumerator FovChange(){
+        for (int i = 0; i < 4; i++){
+            Camera.main.fieldOfView += i*2;
+            yield return new WaitForSeconds(.025f);
+        }
+        for (int i = 0; i < 4; i++){
+            Camera.main.fieldOfView -= i*2;
+            yield return new WaitForSeconds(.025f);
+        }
     }
     
     IEnumerator CoolDown() {

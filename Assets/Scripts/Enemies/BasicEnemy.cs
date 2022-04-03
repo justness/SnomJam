@@ -13,9 +13,6 @@ public class BasicEnemy : Enemy
     NavMeshAgent agent;
     bool resetting;
 
-    public Material lit;
-    public Material red;
-
     Animator anim;
 
     public override void Attack()
