@@ -83,6 +83,8 @@ public class PlayerMovement : MonoBehaviour
         if (canDash && dashTimer <= 0 && dashCount > 0 || !canDash && dashTimer <= 0 && dashCount == maxDashes)
         {
             canDash = false;
+            dashChargeUI.enabled = false;
+            dashCharge = 0;
             StartCoroutine(CoolDown());
         }
         if (canDash && Input.GetMouseButton(0))
