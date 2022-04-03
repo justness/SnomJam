@@ -21,20 +21,19 @@ public class BasicEnemy : Enemy
     public override void Attack()
     {
         agent.speed = 0;
-        //GetComponent<MeshRenderer>().material = red;
-        // Play animation, Apply any effects
+        // Currently, damage is guaranteed. Should another collision be checked to see if the attack landed after getting in range?
+        player.GetComponent<PlayerStats>().health -= attack;
+        // TODO: Play animation, Apply any effects
         attackRecovery = 5;
     }
     public override void Follow()
     {
-        //GetComponent<MeshRenderer>().material = lit;
         agent.speed = speed;
         agent.destination = player.transform.position;
     }
     public override void Reset()
     {
         resetting = true;
-        //GetComponent<MeshRenderer>().material = lit;
         agent.speed = speed;
         agent.destination = spawn;
     }
