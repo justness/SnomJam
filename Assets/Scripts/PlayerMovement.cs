@@ -115,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
         if (dashCount == maxDashes) canDash = false;
     }
     
-    IEnumerator CoolDown(){
+    IEnumerator CoolDown() {
         int dashed = dashCount;
         for (int i = 0; i < dashed; i++){
             dashCount--;
@@ -133,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void UpdateDashCount(){
+    void UpdateDashCount() {
         dashCountUI.text = dashCount.ToString();
         Color textColor = Color.white;
         textColor.a = (1f/maxDashes) * dashCount;
