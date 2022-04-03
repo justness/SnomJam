@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     Vector3 direction;
 
     float distToGround;
+    
+    Animator anim;
 
     void Start()
     {
@@ -29,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         distToGround = GetComponent<Collider>().bounds.extents.y;
         direction = t.forward;
+
+        anim = GetComponentInChildren<Animator>();
     }
 
     bool IsGrounded() {
@@ -98,6 +102,8 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Dash()
     {
+        anim.SetTrigger("Attack");
+        
         dashing = true;
         dashCount++;
         dashTimer = 2f;
@@ -114,6 +120,8 @@ public class PlayerMovement : MonoBehaviour
         dashing = false;
         rb.velocity = Vector3.zero;
         if (dashCount == maxDashes) canDash = false;
+        
+        anim.ResetTrigger("Attack");
     }
     
     IEnumerator CoolDown() {
