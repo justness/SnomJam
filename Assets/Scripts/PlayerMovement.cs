@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashTimer = 3f;
     public int dashCount = 0;
     public float dashCharge = 1;
-    
+
     Transform t;
     Rigidbody rb;
 
@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     int maxDashes = 10;
 
     float distToGround;
-    
+
     Animator anim;
 
     void Start()
@@ -32,7 +32,8 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
     }
 
-    bool IsGrounded() {
+    bool IsGrounded()
+    {
         return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.5f);
     }
 
@@ -41,28 +42,34 @@ public class PlayerMovement : MonoBehaviour
         Vector3 forwardMove = t.forward * Time.deltaTime * moveSpeed;
         Vector3 rightMove = t.right * Time.deltaTime * moveSpeed;
         dashTimer -= Time.deltaTime;
-        
+
         // Movement
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)){
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+        {
             Vector3 originalPos = t.position;
-            
-            if (Input.GetKey(KeyCode.W)) {
+
+            if (Input.GetKey(KeyCode.W))
+            {
                 rb.velocity += new Vector3(forwardMove.x, 0, forwardMove.z);
             }
-            if (Input.GetKey(KeyCode.S)) {
+            if (Input.GetKey(KeyCode.S))
+            {
                 rb.velocity += new Vector3(-forwardMove.x, 0, -forwardMove.z);
             }
-            if (Input.GetKey(KeyCode.D)) {
+            if (Input.GetKey(KeyCode.D))
+            {
                 rb.velocity += new Vector3(rightMove.x, 0, rightMove.z);
             }
-            if (Input.GetKey(KeyCode.A)) {
+            if (Input.GetKey(KeyCode.A))
+            {
                 rb.velocity += new Vector3(-rightMove.x, 0, -rightMove.z);
             }
             anim.SetBool("Running", true);
         }
-        else {
+        else
+        {
             if (!dashing) rb.velocity = new Vector3(0, rb.velocity.y, 0);
-            
+
             anim.SetBool("Running", false);
         }
     }
@@ -70,26 +77,34 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // Dash
-        if (canDash && dashTimer <= 0 && dashCount > 0 || !canDash && dashTimer <= 0 && dashCount == maxDashes){
+        if (canDash && dashTimer <= 0 && dashCount > 0 || !canDash && dashTimer <= 0 && dashCount == maxDashes)
+        {
             canDash = false;
             StartCoroutine(CoolDown());
         }
-        if (canDash && Input.GetMouseButton(0)){
-            if (dashCharge < 5){
+        if (canDash && Input.GetMouseButton(0))
+        {
+            if (dashCharge < 5)
+            {
                 dashCharge += Time.deltaTime;
             }
         }
-        if (canDash && Input.GetMouseButtonUp(0)){
+        if (canDash && Input.GetMouseButtonUp(0))
+        {
             StartCoroutine(Dash());
         }
-        
+
         // Air time
-        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space)){
+        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
+        {
+            anim.ResetTrigger("Jump");
+
             StartCoroutine(Jump());
         }
-        
-        if (!IsGrounded()) {
-            rb.velocity += new Vector3(0,-.3f,0);
+
+        if (!IsGrounded())
+        {
+            rb.velocity += new Vector3(0, -.3f, 0);
         }
 
         if (rb.transform.position.y < 0)
@@ -101,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator Dash()
     {
         anim.SetTrigger("Attack");
-        
+
         dashing = true;
         dashCount++;
         dashTimer = 2f;
@@ -109,31 +124,36 @@ public class PlayerMovement : MonoBehaviour
         UpdateDashCount();
         StartCoroutine(FovChange());
 
-        float boost = dashCharge+(dashCount*.2f);
-        rb.velocity = t.forward*moveSpeed*boost;
-        yield return new WaitForSeconds(.1f*dashCount);
+        float boost = dashCharge + (dashCount * .2f);
+        rb.velocity = t.forward * moveSpeed * boost;
+        yield return new WaitForSeconds(.1f * dashCount);
 
         dashing = false;
         rb.velocity = Vector3.zero;
         if (dashCount == maxDashes) canDash = false;
-        
+
         anim.ResetTrigger("Attack");
     }
 
-    IEnumerator FovChange(){
-        for (int i = 0; i < 4; i++){
+    IEnumerator FovChange()
+    {
+        for (int i = 0; i < 4; i++)
+        {
             Camera.main.fieldOfView += i;
-            yield return new WaitForSeconds(.02f*dashCount);
+            yield return new WaitForSeconds(.02f * dashCount);
         }
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++)
+        {
             Camera.main.fieldOfView -= i;
-            yield return new WaitForSeconds(.02f*dashCount);
+            yield return new WaitForSeconds(.02f * dashCount);
         }
     }
-    
-    IEnumerator CoolDown() {
+
+    IEnumerator CoolDown()
+    {
         int dashed = dashCount;
-        for (int i = 0; i < dashed; i++){
+        for (int i = 0; i < dashed; i++)
+        {
             dashCount--;
             UpdateDashCount();
             yield return new WaitForSeconds(.25f);
@@ -141,18 +161,24 @@ public class PlayerMovement : MonoBehaviour
         canDash = true;
         dashCount = 0;
     }
-    
-    IEnumerator Jump(){
-        for (int i = 0; i < 5; i++) {
-            rb.velocity += new Vector3(0, 10-i, 0);
+
+    IEnumerator Jump()
+    {
+
+        anim.SetTrigger("Jump");
+
+        for (int i = 0; i < 5; i++)
+        {
+            rb.velocity += new Vector3(0, 10 - i, 0);
             yield return new WaitForSeconds(0.01f);
         }
     }
 
-    void UpdateDashCount() {
-        dashCountUI.text = "<shake a="+(dashCount*.05).ToString()+">"+dashCount.ToString();
+    void UpdateDashCount()
+    {
+        dashCountUI.text = "<shake a=" + (dashCount * .05).ToString() + ">" + dashCount.ToString();
         Color textColor = Color.black;
-        textColor.a = (1f/maxDashes) * dashCount;
+        textColor.a = (1f / maxDashes) * dashCount;
         if (textColor.a > 1) textColor.a = 1;
         dashCountUI.color = textColor;
     }
