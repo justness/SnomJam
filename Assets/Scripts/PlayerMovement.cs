@@ -58,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.A)) {
                 rb.velocity += new Vector3(-rightMove.x, 0, -rightMove.z);
             }
+            
             anim.SetBool("Running", true);
         }
         else {
@@ -82,13 +83,15 @@ public class PlayerMovement : MonoBehaviour
         if (canDash && Input.GetMouseButtonUp(0)){
             StartCoroutine(Dash());
         }
-        
-        // Air time
-        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space)){
-            StartCoroutine(Jump());
+
+        if (IsGrounded())
+        {
+            // Air time
+            if (Input.GetKeyDown(KeyCode.Space)){
+                StartCoroutine(Jump());
+            }
         }
-        
-        if (!IsGrounded()) {
+        else {
             rb.velocity += new Vector3(0,-.3f,0);
         }
 
@@ -120,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
         anim.ResetTrigger("Attack");
     }
 
-    IEnumerator FovChange(){
+    IEnumerator FovChange() {
         for (int i = 0; i < 4; i++){
             Camera.main.fieldOfView += i*2;
             yield return new WaitForSeconds(.025f);
@@ -142,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
         dashCount = 0;
     }
     
-    IEnumerator Jump(){
+    IEnumerator Jump() {
         for (int i = 0; i < 5; i++) {
             rb.velocity += new Vector3(0, 10-i, 0);
             yield return new WaitForSeconds(0.01f);
