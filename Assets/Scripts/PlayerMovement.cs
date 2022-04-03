@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         
         // Air time
         if (IsGrounded() && canDash && Input.GetKeyDown(KeyCode.Space)){
-            Debug.Log("jumped");
+            //Debug.Log("jumped");
             StartCoroutine(Jump());
             dashCount++;
             dashTimer = 2f;
@@ -140,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
     }
     
     IEnumerator Jump(){
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             rb.velocity += new Vector3(0, 15-i, 0);
             yield return new WaitForSeconds(0.01f);
         }
