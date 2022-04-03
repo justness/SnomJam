@@ -6,11 +6,12 @@ using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 10f;
+    [SerializeField] float moveSpeed = 100f;
     public TextMeshProUGUI dashCountUI;
     public bool dashing = false;
-    public float dashTimer = 2f;
+    public float dashTimer = 3f;
     public int dashCount = 0;
+    public float dashCharge = 1;
     
     Transform t;
     Rigidbody rb;
@@ -73,13 +74,17 @@ public class PlayerMovement : MonoBehaviour
             canDash = false;
             StartCoroutine(CoolDown());
         }
-        if (canDash && Input.GetMouseButtonDown(0)){
+        if (canDash && Input.GetMouseButton(0)){
+            if (dashCharge < 5){
+                dashCharge += Time.deltaTime;
+            }
+        }
+        if (canDash && Input.GetMouseButtonUp(0)){
             StartCoroutine(Dash());
         }
         
         // Air time
         if (IsGrounded() && canDash && Input.GetKeyDown(KeyCode.Space)){
-            //Debug.Log("jumped");
             StartCoroutine(Jump());
             dashCount++;
             dashTimer = 2f;
@@ -103,16 +108,18 @@ public class PlayerMovement : MonoBehaviour
         dashing = true;
         dashCount++;
         dashTimer = 2f;
+        Camera.main.fieldOfView = 75;
 
         UpdateDashCount();
 
-        if (rb.velocity.magnitude > 0) rb.velocity = rb.velocity*(1+(dashCount*.2f));
-        else rb.velocity = t.forward*moveSpeed*(1+(dashCount*.2f));
-        yield return new WaitForSeconds(.5f);
+        float boost = dashCharge+(dashCount*.2f);
+        rb.velocity = t.forward*moveSpeed*boost;
+        yield return new WaitForSeconds(.8f);
 
         dashing = false;
         rb.velocity = Vector3.zero;
         if (dashCount == maxDashes) canDash = false;
+        Camera.main.fieldOfView = 60;
         
         anim.ResetTrigger("Attack");
     }
@@ -122,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
         for (int i = 0; i < dashed; i++){
             dashCount--;
             UpdateDashCount();
-            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(.25f);
         }
         canDash = true;
         dashCount = 0;

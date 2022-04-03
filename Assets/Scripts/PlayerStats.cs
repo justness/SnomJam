@@ -28,8 +28,6 @@ public class PlayerStats : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag.Equals("Enemy") && gameObject.GetComponent<PlayerMovement>().dashing) {
-            Debug.Log("hit enemy");
-            
             if (collision.gameObject.GetComponent<Enemy>().health <= attack * gameObject.GetComponent<PlayerMovement>().dashCount)
             {
                 manager.RemoveSpawn(collision.gameObject.GetComponent<Enemy>());
