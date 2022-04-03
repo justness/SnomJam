@@ -268,6 +268,10 @@ PrefabInstance:
       value: hands_jump
       objectReference: {fileID: 0}
     - target: {fileID: 4945549286635975806, guid: cd848d8f626b77c44885c414e8a1ec79, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4945549286635975806, guid: cd848d8f626b77c44885c414e8a1ec79, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bb4d1ec0ca941bd40b57871173adcd24, type: 2}
