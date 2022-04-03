@@ -14,22 +14,29 @@ public class WaveController : MonoBehaviour
 
     int waveNum;
     Spawner spawn;
+    
+    TutorialManager tutorial;
 
     void Start()
     {
+        tutorial = FindObjectOfType<TutorialManager>();
+        
         enemiesToGo = waveCounts[0];
 
         spawn = GetComponent<Spawner>();
-
-        SetSpawnerValues(1);
     }
 
     void Update()
     {
-        if (waveNum < waveCounts.Length && enemiesToGo <= 0)
+        if (!tutorial.isInTutorial && waveNum < waveCounts.Length && enemiesToGo <= 0)
         {
             SetSpawnerValues(waveNum + 1);
         }
+    }
+
+    public void StartWaves()
+    {
+        SetSpawnerValues(1);
     }
 
     void SetSpawnerValues(int wave)
