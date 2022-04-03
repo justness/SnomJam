@@ -66,6 +66,6 @@ public class BasicEnemy : Enemy
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player") Attack();
+        if (collision.gameObject.tag.Equals("Player")) Attack();
     }
 }

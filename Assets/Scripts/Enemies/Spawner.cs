@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     float delayLength = 5f;
     public float spawnDelay;
 
+    TutorialManager tutorial;
     EnemyManager manager;
     [HideInInspector] public bool canSpawn;
     [HideInInspector] public int numSpawned;
@@ -16,21 +17,27 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         spawnDelay = delayLength;
+
+        tutorial = FindObjectOfType<TutorialManager>();
         manager = GetComponent<EnemyManager>();
     }
 
     void Update()
     {
-        if (canSpawn && spawnDelay <= 0 && numSpawned < maxNumEnemies) {
-            Spawn();
-        }
+        if (!tutorial.isInTutorial)
+        {
+            if (canSpawn && spawnDelay <= 0 && numSpawned < maxNumEnemies) {
+                Spawn();
+            }
         
-        spawnDelay -= Time.deltaTime;
+            spawnDelay -= Time.deltaTime;
+        }
     }
 
     public void Spawn()
     {
         GameObject newEnemy = Instantiate(enemyType, transform);
+        newEnemy.transform.localPosition = Vector3.zero;
         manager.NewSpawn(newEnemy.GetComponent<Enemy>());
         spawnDelay = delayLength;
 
