@@ -18,7 +18,7 @@ public class SoundController : MonoBehaviour
 
     public void PlaySound()
     {
-        if (!src.isPlaying)
+        if (src != null && !src.isPlaying)
         {
             src.clip = sounds[Random.Range(0, sounds.Length)];
             src.Play();
