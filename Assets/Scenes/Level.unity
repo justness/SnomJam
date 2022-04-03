@@ -457,6 +457,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &2064933138 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4349993931977026034, guid: 8d57788a35ecb444e9e409600355dc34, type: 3}
+  m_PrefabInstance: {fileID: 2120852544}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2120852544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -464,6 +469,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 236403386684976390, guid: 8d57788a35ecb444e9e409600355dc34, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4286611711
+      objectReference: {fileID: 0}
     - target: {fileID: 4349993931975644027, guid: 8d57788a35ecb444e9e409600355dc34, type: 3}
       propertyPath: m_Name
       value: UI
@@ -552,6 +561,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4349993931977026034, guid: 8d57788a35ecb444e9e409600355dc34, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4349993932137205047, guid: 8d57788a35ecb444e9e409600355dc34, type: 3}
       propertyPath: m_text
       value: 
@@ -565,6 +578,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3410178386464505517, guid: 77e02e96084b33c4288254f720bc138d, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 2064933138}
     - target: {fileID: 3410178386464505517, guid: 77e02e96084b33c4288254f720bc138d, type: 3}
       propertyPath: healthbar
       value: 
