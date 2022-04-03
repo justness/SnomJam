@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 9f70caedd2389a446abbc7cb7f581e4b, type: 2}
+--- !u!114 &11542551 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2773047672292555026, guid: 8d57788a35ecb444e9e409600355dc34, type: 3}
+  m_PrefabInstance: {fileID: 2120852544}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &139499048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1927,5 +1938,9 @@ PrefabInstance:
       propertyPath: dashCountUI
       value: 
       objectReference: {fileID: 393321170}
+    - target: {fileID: 7535665861121694762, guid: 77e02e96084b33c4288254f720bc138d, type: 3}
+      propertyPath: dashChargeUI
+      value: 
+      objectReference: {fileID: 11542551}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77e02e96084b33c4288254f720bc138d, type: 3}

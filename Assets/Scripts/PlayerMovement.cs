@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 100f;
     public TextMeshProUGUI dashCountUI;
+    public Image dashChargeUI;
     public bool dashing = false;
     public float dashTimer = 3f;
     public int dashCount = 0;
@@ -85,13 +87,17 @@ public class PlayerMovement : MonoBehaviour
         }
         if (canDash && Input.GetMouseButton(0))
         {
-            if (dashCharge < 5)
+            if (dashCharge < 3)
             {
                 dashCharge += Time.deltaTime;
             }
+            dashChargeUI.enabled = true;
+            dashChargeUI.GetComponent<RectTransform>().sizeDelta =  new Vector2 (dashCharge*75, 10);
         }
         if (canDash && Input.GetMouseButtonUp(0))
         {
+            dashChargeUI.enabled = false;
+            dashCharge = 0;
             StartCoroutine(Dash());
         }
 
