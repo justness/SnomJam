@@ -12,6 +12,7 @@ public class PlayerStats : MonoBehaviour
     int attack = 10;
 
     [SerializeField] Transform healthBar;
+    public ParticleSystem blood;
 
     EnemyManager manager;
 
@@ -39,6 +40,7 @@ public class PlayerStats : MonoBehaviour
                 if (health + (2*enemyHealth) < maxHealth) health += (2*enemyHealth);
                 else health = maxHealth;
 
+                Instantiate(blood, collision.gameObject.transform.position + new Vector3(0,1,0), Quaternion.identity);
                 Destroy(collision.gameObject);
             }
         }
