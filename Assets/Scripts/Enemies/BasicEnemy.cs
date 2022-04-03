@@ -19,8 +19,9 @@ public class BasicEnemy : Enemy
     {
         agent.speed = 0;
         // Currently, damage is guaranteed. Should another collision be checked to see if the attack landed after getting in range?
-        player.GetComponent<PlayerStats>().health -= attack;
-        // TODO: Play animation, Apply any effects
+        PlayerStats ps = player.GetComponent<PlayerStats>();
+        ps.health -= attack;
+        ps.CheckHealth();
         attackRecovery = 5;
     }
     public override void Follow()
