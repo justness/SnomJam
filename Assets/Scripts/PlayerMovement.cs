@@ -147,8 +147,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void UpdateDashCount() {
-        dashCountUI.text = dashCount.ToString();
-        Color textColor = Color.white;
+        dashCountUI.text = "<shake a=0.5>"+dashCount.ToString();
+        Color textColor = Color.black;
         textColor.a = (1f/maxDashes) * dashCount;
         if (textColor.a > 1) textColor.a = 1;
         dashCountUI.color = textColor;
