@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4577842381412097099}
   - component: {fileID: 587747176680313838}
   - component: {fileID: 3444391391165425444}
+  - component: {fileID: -4656267971838331365}
   m_Layer: 0
   m_Name: amphora
   m_TagString: Untagged
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-4656267971838331365
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3804437537879721713}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: e594f300e6d7b7f46b436d93c2a4b10a, type: 3}
